@@ -13,6 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('rejected', function () {
+    return response()->json(['message' => 'Fail to connect'], 401);
+})->name('rejected');
+
+Route::post('emailverification', 'VerificationController@sendMail');
+
+
+
+Route::group(['prefix' => 'auth','middleware' => 'auth:api'], function() {
+	Route::get('test', function () {
+	    return 'success2';
+	});
 });
